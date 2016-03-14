@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const dbData = require('./dbConfig');
-const mainPageRoute = require('./routes/main-route');
 const imageRoute = require('./routes/image-route');
 
 var app = express();
@@ -20,7 +19,7 @@ app.use(express.static( publicPath, { redirect : false } ) );
 
 /**** PARSING MODULES FOR APP ****/
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+
 
 /**** ALLOW REQUEST FROM OTHER URLS ****/
 app.use( ( req, response, next ) => {
@@ -32,7 +31,6 @@ app.use( ( req, response, next ) => {
 });
 
 /**** ROUTES ****/
-app.use('/', mainPageRoute());
 app.use('/image', imageRoute());
 
 /**** ERROR HANDLING ****/

@@ -1,0 +1,23 @@
+<h3 class='center'> Images </h3>
+<div class='imageContainer'>
+  <div class='imageListInfo' ng-repeat='image in images.all'>
+    <img class='image' src={{image.url}}> </img>
+    <div>Caption: {{image.caption}} </div>
+  </div>
+</div>
+
+
+<form class='center'>
+  <label> Add Image </label>
+  <div>
+    <label >Image Url:  </label>
+    <input type="text" ng-model="images.newImage.url">
+  </div>
+  <br>
+  <div>
+    <label >Caption:  </label>
+    <input type="text" ng-model="images.newImage.caption">
+  </div>
+  <br>
+  <button ng-click='images.createImage(images.newImage)'>Create Image</button>
+</form>

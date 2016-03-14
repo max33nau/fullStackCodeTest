@@ -46,7 +46,7 @@ describe('Test image routes and functionality for requests', function () {
   });
 
   it('should delete the created image from the database', function (done) {
-    chaiRequest.delete('/image/'+imageInfo.id)
+    chaiRequest.delete('/image/'+imageInfo._id)
     .then(function (response) {
       expect(response).to.have.status(200);
       done();

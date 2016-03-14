@@ -57,15 +57,61 @@
 	
 	var _angularUiRouter2 = _interopRequireDefault(_angularUiRouter);
 	
+	var _providers = __webpack_require__(8);
+	
+	var _providers2 = _interopRequireDefault(_providers);
+	
+	var _imageTemplate = __webpack_require__(10);
+	
+	var _imageTemplate2 = _interopRequireDefault(_imageTemplate);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/* providers */
+	
 	
 	/* Vendors */
 	
 	
-	var app = _angular2.default.module('finalApp', [_angularUiRouter2.default]);
+	var app = _angular2.default.module('finalApp', [_angularUiRouter2.default, _providers2.default]);
+	
+	/* html templates */
+	
+	
+	app.constant('baseUrl', 'http://localhost:3030');
+	
+	app.config(['ImageProvider', 'baseUrl', function (ImageProvider, baseUrl) {
+	  ImageProvider.setUrl(baseUrl);
+	}]);
 	
 	app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-	  $urlRouterProvider.otherwise('/finalTest');
+	  $urlRouterProvider.otherwise('/');
+	  $stateProvider.state('finalTest', {
+	    url: '/',
+	    template: _imageTemplate2.default,
+	    resolve: {
+	      loadImages: function loadImages(Image) {
+	        return Image.getAll().then(function (response) {
+	          return response.data;
+	        }).catch(function (error) {
+	          console.log(error);
+	          return error;
+	        });
+	      }
+	    },
+	    controller: ['$scope', 'loadImages', 'Image', function ($scope, loadImages, Image) {
+	      $scope.images = {};
+	      $scope.images.newImage = {};
+	      $scope.images.all = loadImages;
+	      $scope.images.createImage = function (newImage) {
+	        Image.create(newImage).then(function (response) {
+	          $scope.images.all.push(response.data);
+	        }).catch(function (error) {
+	          console.log(error);
+	        });
+	      };
+	    }]
+	  });
 	}]);
 	
 	_angular2.default.element(document).ready(function () {
@@ -107,7 +153,7 @@
 	
 	
 	// module
-	exports.push([module.id, "h1 {\n  color: red; }\n", ""]);
+	exports.push([module.id, "h1 {\n  color: red;\n  text-align: center; }\n\n.imageContainer {\n  max-width: 100%;\n  max-height: 100%;\n  margin: 5px auto;\n  display: flex;\n  justify-content: center;\n  align-items: flex-start;\n  flex-flow: row wrap;\n  margin: 20px; }\n\n.image {\n  width: 200px;\n  max-width: 100%;\n  max-height: 200px;\n  border: solid 1px black;\n  background-color: white;\n  margin: 0 10px;\n  cursor: pointer; }\n\n.imageListInfo {\n  width: 200px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-flow: column;\n  margin: 5px 20px; }\n\n.center {\n  text-align: center;\n  margin: 0 auto; }\n", ""]);
 	
 	// exports
 
@@ -35406,6 +35452,80 @@
 	  .filter('isState', $IsStateFilter)
 	  .filter('includedByState', $IncludedByStateFilter);
 	})(window, window.angular);
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _angular = __webpack_require__(5);
+	
+	var _angular2 = _interopRequireDefault(_angular);
+	
+	var _imageProvider = __webpack_require__(9);
+	
+	var _imageProvider2 = _interopRequireDefault(_imageProvider);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var providers = _angular2.default.module('providers', []);
+	
+	(0, _imageProvider2.default)(providers);
+	
+	exports.default = providers.name;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function (ngModule) {
+	  ngModule.provider('Image', function () {
+	    var API_URL;
+	    this.setUrl = function (url) {
+	      API_URL = url;
+	    };
+	    this.$get = function ($http, $cacheFactory) {
+	      return {
+	        getAll: function getAll() {
+	          return $http({
+	            url: API_URL + '/image',
+	            method: 'GET'
+	          });
+	        },
+	        create: function create(newImage) {
+	          return $http({
+	            url: API_URL + '/image',
+	            method: 'POST',
+	            data: newImage
+	          });
+	        },
+	        delete: function _delete(image) {
+	          return $http({
+	            url: API_URL + '/image/' + image._id,
+	            method: 'DELETE'
+	          });
+	        }
+	      };
+	    };
+	  });
+	};
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	module.exports = "<h3 class='center'> Images </h3>\n<div class='imageContainer'>\n  <div class='imageListInfo' ng-repeat='image in images.all'>\n    <img class='image' src={{image.url}}> </img>\n    <div>Caption: {{image.caption}} </div>\n  </div>\n</div>\n\n\n<form class='center'>\n  <label> Add Image </label>\n  <div>\n    <label >Image Url:  </label>\n    <input type=\"text\" ng-model=\"images.newImage.url\">\n  </div>\n  <br>\n  <div>\n    <label >Caption:  </label>\n    <input type=\"text\" ng-model=\"images.newImage.caption\">\n  </div>\n  <br>\n  <button ng-click='images.createImage(images.newImage)'>Create Image</button>\n</form>\n";
 
 /***/ }
 /******/ ]);
