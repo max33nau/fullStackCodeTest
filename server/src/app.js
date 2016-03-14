@@ -3,6 +3,9 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const dbData = require('./dbConfig');
+const mainPageRoute = require('./routes/main-route');
+const imageRoute = require('./routes/image-route');
+
 var app = express();
 
 /**** VIEWS ****/
@@ -29,7 +32,8 @@ app.use( ( req, response, next ) => {
 });
 
 /**** ROUTES ****/
-
+app.use('/', mainPageRoute());
+app.use('/image', imageRoute());
 
 /**** ERROR HANDLING ****/
 app.use(function(request,response,next) {

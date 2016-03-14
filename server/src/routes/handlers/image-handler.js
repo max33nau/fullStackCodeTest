@@ -5,7 +5,7 @@ var image_handler = {};
 mongoose.Promise = Promise;
 
 image_handler.getAll = function(request, response) {
-  Player.find({}).sort({ name: 'asc' })
+  Image_Model.find({}).sort({ name: 'asc' })
     .then(function (images) {
       response.json(images);
     })
@@ -27,7 +27,16 @@ image_handler.addImage = function(request, response) {
     });
 };
 
-
+image_handler.removeImage = function(request, response) {
+  Image_Model.remove({ _id: request.params.id })
+    .then(function (image) {
+      response.send(request.params.id + ' was removed');
+    })
+    .catch(function (error) {
+      response.send(error);
+    });
 };
+
+
 
 module.exports = image_handler;
