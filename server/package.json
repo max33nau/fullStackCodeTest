@@ -1,0 +1,33 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/max33nau/fullStackCodeTest.git"
+  },
+  "author": "Max Jacobsen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/max33nau/fullStackCodeTest/issues"
+  },
+  "homepage": "https://github.com/max33nau/fullStackCodeTest#readme",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "express": "^4.13.4",
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.0",
+    "gulp-mocha": "^2.2.0",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "^2.1.0",
+    "mocha": "^2.4.5",
+    "mongoose": "^4.4.7"
+  }
+}
