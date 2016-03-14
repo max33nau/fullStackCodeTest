@@ -35525,7 +35525,7 @@
 /* 10 */
 /***/ function(module, exports) {
 
-	module.exports = "<h3 class='center'> Images </h3>\n<div class='imageContainer'>\n  <div class='imageListInfo' ng-repeat='image in images.all'>\n    <img class='image' src={{image.url}}> </img>\n    <div>Caption: {{image.caption}} </div>\n  </div>\n</div>\n\n\n<form class='center'>\n  <label> Add Image </label>\n  <div>\n    <label >Image Url:  </label>\n    <input type=\"text\" ng-model=\"images.newImage.url\">\n  </div>\n  <br>\n  <div>\n    <label >Caption:  </label>\n    <input type=\"text\" ng-model=\"images.newImage.caption\">\n  </div>\n  <br>\n  <button ng-click='images.createImage(images.newImage)'>Create Image</button>\n</form>\n";
+	module.exports = "<h3 class='center'> Images </h3>\n<div class='imageContainer'>\n  <div class='imageListInfo' ng-repeat='image in images.all'>\n    <img class='image' ng-src={{image.url}}> </img>\n    <div>Caption: {{image.caption}} </div>\n  </div>\n</div>\n\n\n<form class='center'>\n  <label> Add Image </label>\n  <div>\n    <label >Image Url:  </label>\n    <input type=\"text\" ng-model=\"images.newImage.url\">\n  </div>\n  <br>\n  <div>\n    <label >Caption:  </label>\n    <input type=\"text\" ng-model=\"images.newImage.caption\">\n  </div>\n  <br>\n  <button ng-click='images.createImage(images.newImage)'>Create Image</button>\n</form>\n";
 
 /***/ }
 /******/ ]);

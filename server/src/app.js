@@ -33,13 +33,6 @@ app.use( ( req, response, next ) => {
 /**** ROUTES ****/
 app.use('/image', imageRoute());
 
-/**** ERROR HANDLING ****/
-app.use(function(request,response,next) {
-  var error = new Error('Not Found');
-  error.status = 404;
-  next(error);
-});
-
 
 /**** START THE APP ****/
  module.exports = function start() {
